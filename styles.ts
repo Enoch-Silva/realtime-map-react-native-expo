@@ -11,4 +11,21 @@ export const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
   },
+  button: {
+    flex: 1,
+    height: 56,
+    backgroundColor: "#64259A",
+    position: "absolute",
+    bottom: 35,
+    left: 24,
+    right: 24,
+    borderRadius: 20,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  buttonTitle: {
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: 16,
+  },
 });

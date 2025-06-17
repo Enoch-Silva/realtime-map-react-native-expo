@@ -1,5 +1,13 @@
 import { useEffect, useState, useRef } from "react";
-import { View } from "react-native";
+import {
+  View,
+  TouchableOpacity,
+  Text,
+  Platform,
+  Linking,
+  Alert,
+  StyleSheet,
+} from "react-native";
 import {
   requestForegroundPermissionsAsync,
   getCurrentPositionAsync,
@@ -21,8 +29,34 @@ export default function App() {
       const currentPosition = await getCurrentPositionAsync();
       setLocation(currentPosition);
 
-      //console.log("Localização Atual:", currentPosition);
+      /* console.log("Localização Atual:", {
+        latitude: currentPosition.coords.latitude,
+        longitude: currentPosition.coords.longitude,
+      }); */
     }
+  }
+
+  async function handleOpenDeviceMap() {
+    const scheme = Platform.select({
+      ios: "maps://0,0?q=",
+      android: "geo:0,0?q=",
+    });
+    const currentPosition = await getCurrentPositionAsync();
+    const { latitude, longitude } = currentPosition.coords;
+    const latLgn = `${latitude},${longitude}`;
+    const label = "Você está aqui";
+    const url = Platform.select({
+      ios: `${scheme}${label}@${latLgn}`,
+      android: `${scheme}${latLgn}(${label})`,
+    });
+    if (!url) {
+      return Alert.alert("Ops, Não foi possivel abrir o mapa.");
+    }
+    const canOpen = await Linking.canOpenURL(url);
+    if (!canOpen) {
+      return Alert.alert("Ops, Não foi possivel abrir o mapa.");
+    }
+    Linking.openURL(url);
   }
 
   useEffect(() => {
@@ -39,7 +73,7 @@ export default function App() {
       (newLocation) => {
         setLocation(newLocation);
         mapRef.current?.animateCamera({
-          pitch: 60,
+          pitch: 0,
           center: newLocation.coords,
         });
         //console.log("Nova Localização:", newLocation);
@@ -70,6 +104,13 @@ export default function App() {
           />
         </MapView>
       )}
+      <TouchableOpacity
+        style={styles.button}
+        activeOpacity={0.8}
+        onPress={handleOpenDeviceMap}
+      >
+        <Text style={styles.buttonTitle}>Como chegar</Text>
+      </TouchableOpacity>
     </View>
   );
 }
