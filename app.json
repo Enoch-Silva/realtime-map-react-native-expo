@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "realtime map",
-    "slug": "realtime map",
+    "slug": "realtime-map-tryout",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -20,10 +20,17 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.enoch_silva.realtimemaptryout"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "3198a42b-fa82-4c4e-8c38-ffe53520b829"
+      }
+    },
+    "owner": "enoch_silva"
   }
 }

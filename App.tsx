@@ -6,7 +6,6 @@ import {
   Platform,
   Linking,
   Alert,
-  StyleSheet,
 } from "react-native";
 import {
   requestForegroundPermissionsAsync,
@@ -28,11 +27,6 @@ export default function App() {
     if (granted) {
       const currentPosition = await getCurrentPositionAsync();
       setLocation(currentPosition);
-
-      /* console.log("Localização Atual:", {
-        latitude: currentPosition.coords.latitude,
-        longitude: currentPosition.coords.longitude,
-      }); */
     }
   }
 
